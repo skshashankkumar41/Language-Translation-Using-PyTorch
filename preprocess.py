@@ -100,8 +100,7 @@ def preprocess(df_path, save_path):
         return "Error while Splitting"
 
 if __name__ == "__main__":
-    #preprocess('Language-Translation-Using-PyTorch/input/enghin.csv', 'Language-Translation-Using-PyTorch/input/')
+    preprocess('Language-Translation-Using-PyTorch/input/enghin.csv', 'Language-Translation-Using-PyTorch/input/')
 
-    print(text_preprocess("I'm the Best Fortnite    player in the world"))
 
 
