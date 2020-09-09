@@ -16,7 +16,7 @@ class MyCollate:
         return sources,targets 
 
 
-def get_loader(root_path, batch_size = 32,shuffle = True):
+def get_loader(root_path, batch_size = 32,shuffle = True, num_workers = 8,pin_memory = True):
     trainDataset = TranslateDataset(root_path + 'train_df.csv')
     valDataset = TranslateDataset(root_path + 'validate_df.csv')
     testDataset = TranslateDataset(root_path + 'test_df.csv')
@@ -29,6 +29,8 @@ def get_loader(root_path, batch_size = 32,shuffle = True):
         dataset =trainDataset,
         batch_size= batch_size,
         shuffle = shuffle, 
+        num_workers = num_workers,
+        pin_memory = pin_memory,
         collate_fn = MyCollate(padIdx = padIdx )
     )
 
@@ -36,6 +38,8 @@ def get_loader(root_path, batch_size = 32,shuffle = True):
         dataset = valDataset,
         batch_size= batch_size,
         shuffle = shuffle, 
+        num_workers = num_workers,
+        pin_memory = pin_memory,
         collate_fn = MyCollate(padIdx = padIdx )
     )
 
@@ -43,6 +47,8 @@ def get_loader(root_path, batch_size = 32,shuffle = True):
         dataset = testDataset,
         batch_size= batch_size,
         shuffle = shuffle, 
+        num_workers = num_workers,
+        pin_memory = pin_memory,
         collate_fn = MyCollate(padIdx = padIdx )
     )
 
@@ -53,7 +59,12 @@ def get_loader(root_path, batch_size = 32,shuffle = True):
 # for idx, (src, trg) in enumerate(trainLoader):
 #     print(src.shape)
 #     print(trg.shape)
-#     if idx == 1:
+#     print(src.permute(1,0).shape)
+#     print(trg.permute(1,0).shape)
+#     for src_text, trg_text in zip(src.permute(1,0),trg.permute(1,0)):
+#         print(src_text.shape)
+#         print(trg_text.shape)
 #         break
+#     break
 
 

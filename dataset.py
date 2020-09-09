@@ -18,7 +18,7 @@ class Vocabulary:
 
     @staticmethod
     def tokenizer(text):
-        return [tok.lower() for tok in text.split(" ")]
+        return [tok.lower() for tok in str(text).split(" ")]
 
     def build_vocabulary(self,sentenceList):
         freq = {}

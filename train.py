@@ -48,7 +48,7 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 pad_idx = trainDataset.eng_vocab.stoi["<PAD>"]
 criterion = nn.CrossEntropyLoss(ignore_index=pad_idx)
 
-sentence = "this percentage is even greater than the percentage in india ."
+sentence = "this percentage is even greater than the percentage in india"
 
 for epoch in range(num_epochs):
     print(f"[Epoch {epoch} / {num_epochs}]")
@@ -61,7 +61,8 @@ for epoch in range(num_epochs):
     translated_sentence = translate_sentence(
         model, sentence,trainDataset.eng_vocab, trainDataset.hin_vocab, device, max_length=50
     )
-
+    
+    print(f"Original example sentence: \n {sentence}")
     print(f"Translated example sentence: \n {' '.join(translated_sentence)}")
     model.train()
 
@@ -88,6 +89,10 @@ for epoch in range(num_epochs):
 
         step += 1
 
+    model.eval()
+    score = bleu(valLoader, model, trainDataset.eng_vocab, trainDataset.hin_vocab, device)
+    print(f"Validation Bleu score {score*100:.2f}")
 
-score = bleu(testLoader, model, trainDataset.eng_vocab, trainDataset.hin_vocab, device)
-print(f"Bleu score {score*100:.2f}")
+# model.eval()
+# score = bleu(testLoader, model, trainDataset.eng_vocab, trainDataset.hin_vocab, device)
+# print(f"Bleu score {score*100:.2f}")
