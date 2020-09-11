@@ -6,13 +6,15 @@ from dataset import TranslateDataset
 from model import Encoder, Decoder, Seq2Seq
 from utils import translate_sentence, bleu, save_checkpoint, load_checkpoint
 
-num_epochs = 20
+torch.cuda.empty_cache()
+
+num_epochs = 100
 learning_rate = 0.001
-batch_size = 128
+batch_size = 32
 
 trainLoader, valLoader, testLoader, trainDataset = get_loader(
     root_path = 'Language-Translation-Using-PyTorch/input/',
-    batch_size = 256
+    batch_size = batch_size
     )
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -22,8 +24,8 @@ output_size = len(trainDataset.hin_vocab)
 encoder_embedding_size = 300
 decoder_embedding_size = 300
 
-hidden_size = 1024
-num_layers = 2
+hidden_size = 512
+num_layers = 1
 enc_dropout = 0.5
 dec_dropout = 0.5
 
