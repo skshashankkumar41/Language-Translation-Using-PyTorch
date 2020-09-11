@@ -48,7 +48,7 @@ def translate_sentence(model, sentence, english, hindi, device, max_length=50):
     translated_sentence = [hindi.itos[idx] if idx in hindi.itos else hindi.itos[3] for idx in outputs]
 
     # remove start token
-    return translated_sentence[1:]
+    return translated_sentence[1:-1]
 
 
 def bleu(data, model, english, hindi, device):
