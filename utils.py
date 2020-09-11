@@ -2,6 +2,7 @@ import torch
 import spacy
 from torchtext.data.metrics import bleu_score
 import sys
+from tqdm import tqdm
 
 
 def translate_sentence(model, sentence, english, hindi, device, max_length=50):
@@ -55,7 +56,7 @@ def bleu(data, model, english, hindi, device):
     targets = []
     outputs = []
 
-    for (src,trg) in data:
+    for (src,trg) in tqdm(data):
         for src_text, trg_text in zip(src.permute(1,0),trg.permute(1,0)):
             trg_text = [hindi.itos[idx.item()] if idx.item() in hindi.itos else hindi.itos[3] for idx in trg_text]
             trg_text = [i for i in trg_text if i != '<PAD>']
