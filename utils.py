@@ -57,7 +57,7 @@ def bleu(data, model, english, hindi, device):
 
     for (src,trg) in data:
         for src_text, trg_text in zip(src.permute(1,0),trg.permute(1,0)):
-            trg_text = [hindi.itos[idx.item()] if idx.item() in hindi.itos else hindi.itos[3] for idx in trg_idx]
+            trg_text = [hindi.itos[idx.item()] if idx.item() in hindi.itos else hindi.itos[3] for idx in trg_text]
             trg_text = [i for i in trg_text if i != '<PAD>']
 
             prediction = translate_sentence(model, src_text, english, hindi, device)
